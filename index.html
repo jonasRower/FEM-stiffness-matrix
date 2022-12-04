@@ -1,0 +1,671 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    
+</head>
+<body>
+
+    <!--
+    <link rel="stylesheet" href="grid2Css.css">
+    <link rel="stylesheet" href="table.css">-->
+    <link rel="stylesheet" href="data/Ncss.css">
+
+    <h3>
+        Odvozemí matice tuhosti rovinného trojúhelníkového elemntu
+    </h3>
+
+    <p>
+        Diskretizaci 2D kontinua provádíme pomocí rovinných elemntů, které mají geometricky jednoduchý tvar. 
+        Většinou se používají přímočaré nebo křivočaré polygony z nichž nejjednodušší je trojúhelník.
+        Definujme trojúhelníkový element prostřednictvím tří lokálních uzlů 1 2 3, které jsou umístěny v jeho vrcholech.
+        Poloha uzlů je jednoznačně určena pomocí souřadnic [x1, y1], [x2, y2], [x3, y3], viz obrázek níže. 
+    </p>
+
+    <img src="data/elem.png" alt="Elementy" width="300" height="200">
+
+    <p>
+        Složky posunu ve vodorovném a svislém směru, lze interpolovat funkcemi:
+    </p>
+    \[u(x,y) = \alpha_{1} + \alpha_{2}x + \alpha_{3}y\]
+    \[v(x,y) = \alpha_{4} + \alpha_{5}x + \alpha_{6}y\]
+
+    <!----------------------------------------------------->
+
+    <p>
+        Což lze zapsat maticově:
+    </p>
+
+    <div class="m70m80">
+        <div class="box">
+            <div class="boxA">
+                <p>A = </p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxB">
+                \[
+                \begin{array} {|r|r|}\hline 1 & x & y & 0 & 0 & 0 \\ \hline 0 & 0 & 0 & 1 & x & y \\ \hline  \end{array}
+                \]
+            </div>
+        </div>
+    </div>
+
+    <!----------------------------------------------------->
+
+    <p>
+        Pro uzel 1, tedy platí:
+    </p>
+
+    <div class="m40m10m200m10m40">
+        <div class="box">
+            <div class="boxA">
+                \begin{array} {|r|r|}\hline u_{1} \\ \hline v_{1} \\ \hline  \end{array}
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxB">
+                <p>=</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxC">
+                \[
+                \begin{array} {|r|r|}\hline 1 & x_{1} & y_{1} & 0 & 0 & 0 \\ \hline 0 & 0 & 0 & 1 & x_{1} & y_{1} \\ \hline  \end{array}
+                \]
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxD">
+                <p>.</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxE">
+                <table>
+                    \[
+                    \begin{array} {|r|r|}\hline \alpha_{1} \\ \hline \alpha_{2} \\ \hline \alpha_{3} \\ \hline \alpha_{4} \\ \hline \alpha_{5} \\ \hline \alpha_{6} \\ \hline  \end{array}
+                    \]
+                </table>
+            </div>
+        </div>
+    </div>    
+
+    <!----------------------------------------------------->
+
+    <p>
+        Zapíšeme-li vztahy pro ostatní uzly, získáme:
+    </p>
+
+    <div class="m40m10m200m10m40">
+        <div class="box">
+            <div class="boxA">
+                \[
+                \begin{array} {|r|r|}\hline u_{1} \\ \hline v_{1} \\ \hline u_{2} \\ \hline v_{2} \\ \hline u_{3} \\ \hline v_{3} \\ \hline  \end{array}
+                \]
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxB">
+                <p>=</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxC">
+                \[
+                \begin{array} {|r|r|}
+                \hline 1 & x_1 & y_2 & 0 & 0 & 0 
+                \\ \hline 0 & 0 & 0 & 1 & x_1 & y_1
+                \\ \hline 1 & x_2 & y_2 & 0 & 0 & 0 
+                \\ \hline 0 & 0 & 0 & 1 & x_2 & y_2
+                \\ \hline 1 & x_3 & y_3 & 0 & 0 & 0 
+                \\ \hline 0 & 0 & 0 & 1 & x_3 & y_3
+                \\ \hline  \end{array}
+                \]
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxD">
+                <p>.</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxE">
+                \[
+                \begin{array} {|r|r|}\hline \alpha_{1} \\ \hline \alpha_{2} \\ \hline \alpha_{3} \\ \hline \alpha_{4} \\ \hline \alpha_{5} \\ \hline \alpha_{6} \\ \hline  \end{array}
+                \]
+            </div>
+        </div>
+    </div>    
+
+    <!----------------------------------------------------->
+
+    <p>
+        Které lze zapsat jako:
+    </p>
+    <p>
+        \[\delta = S.\alpha\]
+    </p>
+
+    <!----------------------------------------------------->
+
+    <p>
+        Je-li S regularní, je možné vyjádřit &alpha; závisle na &delta; jako:
+    </p>
+    <p>
+        \[\alpha = S^{-1}.\delta\]
+    </p>
+
+    <!----------------------------------------------------->
+
+    <p>
+        Pro vodorovné posuvy získáme soustavu rovnic:
+    </p>
+
+    <div class="m100m10m80m10m40">
+        <div class="box">
+            <div class="boxA">
+                \[
+                \begin{array} {|r|r|}\hline u_1 & u_2 & u_3 \\ \hline  \end{array}
+                \]
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxB">
+                <p>=</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxC">
+                \[
+                \begin{array} {|r|r|}
+                \hline 1 & x_1 & y_1
+                \\ \hline 1 & x_2 & y_2
+                \\ \hline 1 & x_3 & y_3
+                \\ \hline  \end{array}
+                \]
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxD">
+                <p>.</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxE">
+                \[
+                \begin{array} {|r|r|}\hline \alpha_{1} \\ \hline \alpha_{2} \\ \hline \alpha_{3} \\ \hline  \end{array}
+                \]
+            </div>
+        </div>
+    </div>    
+
+    <!----------------------------------------------------->
+
+    <p>
+        Což lze zapsat vztahem:
+    </p>
+    <p>
+        \[\delta_{u} = s.\alpha_{u}\]
+    </p>
+
+    <!----------------------------------------------------->
+
+    <p>
+        Obdobně, pro svislé posuvy získáme soustavu rovnic:
+    </p>
+
+    <div class="m100m10m80m10m40">
+        <div class="box">
+            <div class="boxA">
+                \[
+                \begin{array} {|r|r|}\hline v_1 & v_2 & v_3 \\ \hline  \end{array}
+                \]
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxB">
+                <p>=</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxC">
+                \[
+                \begin{array} {|r|r|}
+                \hline 1 & x_1 & y_1
+                \\ \hline 1 & x_2 & y_2
+                \\ \hline 1 & x_3 & y_3
+                \\ \hline  \end{array}
+                \]
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxD">
+                <p>.</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxE">
+                \[
+                \begin{array} {|r|r|}\hline \alpha_{4} \\ \hline \alpha_{5} \\ \hline \alpha_{6} \\ \hline  \end{array}
+                \]
+            </div>
+        </div>
+    </div>    
+
+    <!----------------------------------------------------->
+
+    <p>
+        Pro vodorovné posuvy platí obdobný vztah:
+    </p>
+    <p>
+        \[\delta_{v} = s.\alpha_{v}\]
+    </p>
+
+    <!----------------------------------------------------->
+
+    <p>
+        Uplatníme-li na matici s Sarussovo pravidlo pro výpočet determinantu 3x3 :
+    </p>
+    <p>
+        \[Det_s = s_{11}s_{22}s_{33} + s_{21}s_{32}s_{13} + s_{31}s_{12}s_{23} - s_{13}s_{22}s_{31} - s_{23}s_{32}s_{11} - s_{33}s_{12}s_{21}\]
+    </p>
+
+    <!----------------------------------------------------->
+
+    <p>
+        Pak pro matici s získáme determinant:
+    </p>
+    <p>
+        \[\triangle_s = x_2y_3-x_3y_2+y_2x_1-y_3x_1+x_3y_1-x_2y_1\]
+    </p>
+    <p>
+        kde:
+    </p>
+    <p>
+        \[\triangle_s = Det_s\]
+    </p>
+
+
+
+
+    <!----------------------------------------------------->
+
+    <p>
+        Inverzní matice s vypadá následovně:
+    </p>
+
+    <div class="m40m10m20m5m40">
+        <div class="box">
+            <div class="boxA">
+               <p>\[s^{-1}\]</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxB">
+                <p>=</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxC">
+                <p>\[\frac{1}{\triangle_s}\]</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxD">
+                <p>.</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxE">
+                \[
+                \begin{array} {|r|r|}
+                \hline x_2y_3-x_3y_3 & x_3y_1-x_1y_3 & x_1y_2-x_2y_1
+                \\ \hline y_2-y_3 & y_3-y_1 & y_1-y_2
+                \\ \hline x_3-x_2 & x_1-x_3 & x_2-x_1
+                \\ \hline  \end{array}
+                \]
+            </div>
+        </div>
+    </div>    
+
+    <!----------------------------------------------------->
+
+    <p>
+        Hodnota &Delta;<sub>s</sub> má geometrický význam. Determinant matice s je roven dvojnásobku plochy trojúhelníka &Delta;<sub>123</sub>. Praktickým důsledkem je skutečnost, že nutnou postačující podmínkou regularity matice S je nenulovost plochy trojúhelníka &Delta;<sub>123</sub>.
+    </p>
+
+    <!----------------------------------------------------->
+
+    <p>
+        Po provedení separovaných inverzí:
+    </p>
+    <p>
+        \[\alpha_{u} = s^{-1}.\delta_{u}\]
+        \[\alpha_{v} = s^{-1}.\delta_{v}\]
+    </p>
+
+    <!----------------------------------------------------->
+
+    <p>
+        Obdržíme invertovanou matici S ve tvaru:
+    </p>
+
+    <div class="m70m600m5m40">
+        <div class="box">
+            <div class="boxA">
+                <p>\[S^{-1} = \] </p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxB">
+                \[
+                \begin{array} {|r|r|}
+                \hline x_2y_3-x_3y_3 & 0 & x_3y_1-x_1y_3 & 0 & x_1y_2-x_2y_1 & 0
+                \\ \hline y_2-y_3 & 0 & y_3-y_1 & 0 & y_1-y_2 & 0
+                \\ \hline x_3-x_2 & 0 & x_1-x_3 & 0 & x_2-x_1 & 0
+                \\ \hline 0 & x_2y_3-x_3y_3 & 0 & x_3y_1-x_1y_3 & 0 & x_1y_2-x_2y_1
+                \\ \hline 0 & y_2-y_3 & 0 & y_3-y_1 & 0 & y_1-y_2
+                \\ \hline 0 & x_3-x_2 & 0 & x_1-x_3 & 0 & x_2-x_1
+                \\ \hline  \end{array}
+                \]
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxC">
+                <p>.</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxD">
+                <p>\[\frac{1}{\triangle_s}\]</p>
+            </div>
+        </div>
+    </div>
+
+    <!----------------------------------------------------->
+
+    <p>
+        Následně lze vyjádřit:
+    </p>
+    <p>
+        \[\overrightarrow{u}(x, y) = A(x,y).S^{-1}.\delta\]
+    </p>
+
+    <!----------------------------------------------------->
+
+    <p>
+        Což lze přepsat jako:
+    </p>
+    <p>
+        \[\overrightarrow{u}(x, y) = N(x,y).\delta\]
+    </p>
+
+    <!----------------------------------------------------->
+
+    <p>
+        Kde N(x,y) je matice tvarových funkcí. Následně lze přepsat:
+    </p>
+    <p>
+        \[N(x,y) = A(x,y).S^{-1}\]
+    </p>
+
+    <!----------------------------------------------------->
+
+    <p>
+        Matice tvarových funkcí tedy vyjde jako:
+    </p>
+
+    <div class="m40m10m20m5m40">
+        <div class="box">
+            <div class="boxA">
+               <p>N(x,y)</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxB">
+                <p>=</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxC">
+                <p>\[\frac{1}{\triangle_s}\]</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxD">
+                <p>.</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxE">
+                \[
+                \begin{array} {|r|r|}
+                \hline a_1+b_1x+c_1y & 0 & a_2+b_2x+c_2y & 0 & a_3+b_3x+c_3y & 0 
+                \\ \hline 0 & a_1+b_1x+c_1y & 0_1 & a_2+b_2x+c_2y & 0 & a_3+b_3x+c_3y
+                \\ \hline  \end{array}
+                \]
+            </div>
+        </div>
+    </div>    
+
+    <!----------------------------------------------------->
+
+    <p>
+        kde:
+    </p>
+    <p>
+
+        \[a_1=x_2y_3-x_3y_2 \quad\quad\quad\quad\quad b_1=y_2-y_3 \quad\quad\quad\quad\quad c_1=x_3-x_2\]
+        \[a_2=x_3y_1-x_1y_3 \quad\quad\quad\quad\quad b_2=y_3-y_1 \quad\quad\quad\quad\quad c_2=x_1-x_3\]
+        \[a_3=x_1y_2-x_2y_1 \quad\quad\quad\quad\quad b_3=y_1-y_2 \quad\quad\quad\quad\quad c_3=x_2-x_1\]
+
+    </p>
+
+    <!----------------------------------------------------->
+
+    <p>
+        Koeficienty a, b, c závisí na poloze elementu - na jejich vzájemné poloze.
+    </p>
+    <p>
+        Zaveďme:
+    </p>
+    <p>
+        \[N_1(x,y)=\frac{a_1+b_1x+c_1y}{\triangle_s}\]
+        \[N_2(x,y)=\frac{a_2+b_2x+c_2y}{\triangle_s}\]
+        \[N_3(x,y)=\frac{a_3+b_3x+c_3y}{\triangle_s}\]
+    </p>
+
+    <!----------------------------------------------------->
+
+    <p>
+        Dosadíme-li např. do N<sub>1</sub> koeficienty a<sub>1</sub>, b<sub>1</sub>, c<sub>1</sub>, získáme:
+    </p>
+    <p>
+        \[N_1(x_1,y_1)=\frac{a_1+b_1x+c_1y}{\triangle_s}=\frac{x_2y_3-x_3y_2+y_2x_1-y_3x_1+x_3y_1-x_2y_1}{x_2y_3-x_3y_2+y_2x_1-y_3x_1+x_3y_1-x_2y_1}=1\]
+        \[N_1(x_2,y_2)=\frac{a_1+b_1x+c_1y}{\triangle_s}=\frac{x_2y_3-x_3y_2+y_2x_2-y_3x_2+x_3y_2-x_2y_2}{x_2y_3-x_3y_2+y_2x_1-y_3x_1+x_3y_1-x_2y_1}=0\]
+        \[N_1(x_3,y_3)=\frac{a_1+b_1x+c_1y}{\triangle_s}=\frac{x_2y_3-x_3y_2+y_2x_3-y_3x_3+x_3y_3-x_2y_3}{x_2y_3-x_3y_2+y_2x_1-y_3x_1+x_3y_1-x_2y_1}=0\]
+    </p>
+    <p>
+        Pro N<sub>2</sub>, získáme:
+    </p>
+        \[N_2(x_1,y_1)=\frac{a_2+b_2x+c_2y}{\triangle_s}=\frac{x_3y_1-x_1y_3+y_3x_1-y_1x_1+x_1y_1-x_3y_1}{x_2y_3-x_3y_2+y_2x_1-y_3x_1+x_3y_1-x_2y_1}=0\]
+        \[N_2(x_2,y_2)=\frac{a_2+b_2x+c_2y}{\triangle_s}=\frac{x_3y_1-x_1y_3+y_3x_2-y_1x_2+x_1y_2-x_3y_2}{x_2y_3-x_3y_2+y_2x_1-y_3x_1+x_3y_1-x_2y_1}=1\]
+        \[N_2(x_3,y_3)=\frac{a_2+b_2x+c_2y}{\triangle_s}=\frac{x_3y_1-x_1y_3+y_3x_3-y_1x_3+x_1y_3-x_3y_3}{x_2y_3-x_3y_2+y_2x_1-y_3x_1+x_3y_1-x_2y_1}=0\]
+    <p>
+        Pro N<sub>3</sub>, získáme:
+    </p>
+        \[N_3(x_1,y_1)=\frac{a_2+b_2x+c_2y}{\triangle_s}=\frac{x_1y_2-x_2y_1+y_1x_1-y_2x_1+x_2y_1-x_1y_1}{x_2y_3-x_3y_2+y_2x_1-y_3x_1+x_3y_1-x_2y_1}=0\]
+        \[N_3(x_2,y_2)=\frac{a_2+b_2x+c_2y}{\triangle_s}=\frac{x_1y_2-x_2y_1+y_1x_2-y_2x_2+x_2y_2-x_1y_2}{x_2y_3-x_3y_2+y_2x_1-y_3x_1+x_3y_1-x_2y_1}=0\]
+        \[N_3(x_3,y_3)=\frac{a_2+b_2x+c_2y}{\triangle_s}=\frac{x_1y_2-x_2y_1+y_1x_3-y_2x_3+x_2y_3-x_1y_3}{x_2y_3-x_3y_2+y_2x_1-y_3x_1+x_3y_1-x_2y_1}=1\]
+    </p>
+
+    <!----------------------------------------------------->
+
+    <p>
+        Tvarové funkcejsou zachyceny na obrázku níže:
+    </p>
+
+    <img src="data/N.png" alt="TvaroveFunkce" width="500" height="200">
+    
+   
+    <!----------------------------------------------------->
+
+    <p>
+        Matice tvarových funkcí N pro lineární trojúhelníkový element může být zapsána:
+    </p>
+
+    <div class="m70m80">
+        <div class="box">
+            <div class="boxA">
+                <p>N(x,y)= </p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxB">
+                \[
+                \begin{array} {|r|r|}\hline N_1(x,y) & 0 & N_2(x,y) & 0 & N_3(x,y) & 0 \\ \hline 0 & N_1(x,y) & 0 & N_2(x,y) & 0 & N_3(x,y) \\ \hline  \end{array}
+                \]
+            </div>
+        </div>
+    </div>
+
+    <!----------------------------------------------------->
+
+    <p>
+        Pro rovinnou úlohu lze psát Cauchyho vztahy ve tvaru:
+    </p>
+    <p>
+        \[\epsilon_{xx}=\frac{\partial u}{\partial x} \quad\quad\quad\quad\quad \epsilon_{yy}=\frac{\partial v}{\partial y} \quad\quad\quad\quad\quad \gamma=\frac{\partial u}{\partial y}+\frac{\partial v}{\partial x}\]
+    </p>
+
+    <!----------------------------------------------------->
+
+    <p>
+        Který lze přepsat maticově jako:
+    </p>
+    <p>
+        \[\overrightarrow{\epsilon}=D.\overrightarrow{u}(x,y)\]
+    </p>    
+
+    <!----------------------------------------------------->
+
+    <p>
+        Kde:
+    </p>
+
+    <div class="m70m80">
+        <div class="box">
+            <div class="boxA">
+                D =
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxC">
+                \[
+                \begin{array} {|r|r|}
+                \hline \frac{\partial}{\partial x} & 0 
+                \\ \hline 0 & \frac{\partial}{\partial y}
+                \\ \hline \frac{\partial}{\partial x} & \frac{\partial}{\partial y}
+                \\ \hline  \end{array}
+                \]
+            </div>
+        </div>
+    </div>    
+
+    <!----------------------------------------------------->
+
+    <p>
+        Dosazením vztahů, které jsme uvedli výše:
+    </p>
+    <p>
+        \[\overrightarrow{u}(x, y) = A(x,y).S^{-1}.\delta\]
+        \[\overrightarrow{\epsilon}=D.\overrightarrow{u}(x,y)=D.A(x,y).S^{-1}.\delta=B.\delta\]
+    </p>  
+    <p>
+        Kde matice B je tedy:
+    </p>
+    <p>
+        \[B = D.N(x,y)\]
+    </p>
+    
+    <!----------------------------------------------------->
+
+    <p>
+        Rozepíšeme tedy odvození matice B, parciální derivace podle x:
+    </p>
+    <p>
+        \[\frac{\partial N_1(x,y)}{\partial x}=\frac{\partial (a_1+b_1x+c_1y)}{\partial x}=c_1=x_3-x_2\]
+        \[\frac{\partial N_2(x,y)}{\partial x}=\frac{\partial (a_2+b_2x+c_2y)}{\partial x}=c_2=x_1-x_3\]
+        \[\frac{\partial N_3(x,y)}{\partial x}=\frac{\partial (a_3+b_3x+c_3y)}{\partial x}=c_3=x_2-x_1\]
+    </p>
+    <p>
+        Parciální derivace podle y:
+    </p>
+    <p>
+        \[\frac{\partial N_1(x,y)}{\partial y}=\frac{\partial (a_1+b_1x+c_1y)}{\partial x}=b_1=y_2-y_3\]
+        \[\frac{\partial N_2(x,y)}{\partial y}=\frac{\partial (a_2+b_2x+c_2y)}{\partial x}=b_2=y_3-y_1\]
+        \[\frac{\partial N_3(x,y)}{\partial y}=\frac{\partial (a_3+b_3x+c_3y)}{\partial x}=b_3=y_1-y_2\]
+    </p>
+
+    <!----------------------------------------------------->
+    
+    <p>
+        Součinem matic D.N(x,y) získáme:
+    </p>
+
+    <div class="m40m10m20m5m40">
+        <div class="box">
+            <div class="boxA">
+               <p>B</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxB">
+                <p>=</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxC">
+                <p>\[\frac{1}{\triangle_s}\]</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxD">
+                <p>.</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="boxE">
+                \[
+                \begin{array} {|r|r|}
+                \hline y_2-y_3 & 0 & y_3-y_1 & 0 & y_1-y_2 & 0
+                \\ \hline 0 & x_3-x_2 & 0 & x_1-x_3 & 0 & x_2-x_1
+                \\ \hline x_3-x_2 & y_2-y_3 & x_1-x_3 & y_3-y_1 & x_2-x_1 & y_1-y_2
+                \\ \hline  \end{array}
+                \]
+            </div>
+        </div>
+    </div>    
+
+    <p>
+        Matici tuhosti získáme dle vztahu:
+    </p>
+    <p>
+        \[K = \int_{\Omega}B^{T}.E.B\]
+    </p>
+
+    <p>
+        Odvození již nebudeme provádět, v běžné praxi se matice tuhosti již vyčísluje numericky.
+    </p>
+
+
+    <script type="text/javascript" src="https://www.hostmath.com/Math/MathJax.js?config=OK"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_CHTML-full"></script>
+
+</div>
+
+
+
+</body>
+</html>
